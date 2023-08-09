@@ -1,5 +1,6 @@
-package com.github.onechesz.axiomatikatesttask.config;
+package com.github.onechesz.axiomatikatesttask.configs;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -41,7 +42,7 @@ public class SpringConfig {
         return driverManagerDataSource;
     }
 
-    private Properties hibernateProperties() {
+    private @NotNull Properties hibernateProperties() {
         Properties properties = new Properties();
 
         properties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
@@ -55,7 +56,7 @@ public class SpringConfig {
         LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
 
         localSessionFactoryBean.setDataSource(dataSource());
-        localSessionFactoryBean.setPackagesToScan("com.github.onechesz.axiomatikatesttask");
+        localSessionFactoryBean.setPackagesToScan("com.github.onechesz.axiomatikatesttask.entities");
         localSessionFactoryBean.setHibernateProperties(hibernateProperties());
 
         return localSessionFactoryBean;
