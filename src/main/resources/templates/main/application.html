@@ -9,19 +9,19 @@
     <body>
         <form th:action="@{/application}" th:method="POST" th:object="${client}">
             <label for="firstname">Имя:</label>
-            <input id="firstname" name="firstname" th:field="*{firstname}" type="text">
+            <input id="firstname" name="firstname" type="text">
             <span style="color: red" th:errors="*{firstname}" th:if="@{#fields.hasErrors('firstname')}">Ошибки в имени.</span>
 
             <label for="surname">Отчество:</label>
-            <input id="surname" name="surname" th:field="*{surname}" type="text">
+            <input id="surname" name="surname" type="text">
             <span style="color: red" th:errors="*{surname}" th:if="@{#fields.hasErrors('surname')}">Ошибки в отчестве.</span>
 
             <label for="lastname">Фамилия:</label>
-            <input id="lastname" name="lastname" th:field="*{lastname}" type="text">
+            <input id="lastname" name="lastname" type="text">
             <span style="color: red" th:errors="*{lastname}" th:if="@{#fields.hasErrors('lastname')}">Ошибки в фамилии.</span>
 
             <label for="passport">Серия и номер паспорта (без пробела):</label>
-            <input id="passport" name="passport" th:field="*{passport}" type="text">
+            <input id="passport" name="passport" type="text">
             <span style="color: red" th:errors="*{passport}" th:if="@{#fields.hasErrors('passport')}">Ошибки в паспорте.</span>
 
             <label for="family_status">Семейное положение:</label>
@@ -31,15 +31,31 @@
             </select>
 
             <label for="address">Адрес проживания:</label>
-            <input id="address" name="address" th:field="*{address}" type="text">
+            <input id="address" name="address" type="text">
             <span style="color: red" th:errors="*{address}" th:if="@{#fields.hasErrors('address')}">Ошибки в адресе.</span>
 
             <label for="phone_number">Телефонный номер (без пробелов, начиная с 8):</label>
-            <input id="phone_number" name="phoneNumber" th:field="*{phoneNumber}" type="text">
+            <input id="phone_number" name="phoneNumber" type="text">
             <span style="color: red" th:errors="*{phoneNumber}" th:if="@{#fields.hasErrors('phone_number')}">Ошибки в паспорте.</span>
 
+            <div id="jobs">
+                <input name="jobDTOList[0].organizationName" type="text" placeholder="Название организации">
+                <span style="color: red" th:errors="*{jobDTOList[0].organizationName}" th:if="@{#fields.hasErrors('jobDTOList[0].organizationName')}">Ошибки в названии организации.</span>
+
+                <input name="jobDTOList[0].title" type="text" placeholder="Название работы">
+                <span style="color: red" th:errors="*{jobDTOList[0].title}" th:if="@{#fields.hasErrors('jobDTOList[0].title')}">Ошибки в названии работы.</span>
+
+                <label for="start">Дата начала:</label>
+                <input id="start" name="jobDTOList[0].start" type="date">
+                <span style="color: red" th:errors="*{jobDTOList[0].start}" th:if="@{#fields.hasErrors('jobDTOList[0].start')}">Ошибки в дате начала.</span>
+
+                <label for="end">Дата завершения (оставьте пустой, если ещё работаете):</label>
+                <input id="end" name="jobDTOList[0].end" type="date">
+                <span style="color: red" th:errors="*{jobDTOList[0].end}" th:if="@{#fields.hasErrors('jobDTOList[0].end')}">Ошибки в дате начала.</span>
+            </div>
+
             <label for="sum">Сумма кредита:</label>
-            <input id="sum" name="sum" th:field="*{sum}" type="text">
+            <input id="sum" name="sum" type="text">
             <span style="color: red" th:errors="*{sum}" th:if="@{#fields.hasErrors('sum')}">Ошибки в паспорте.</span>
 
             <input type="submit" value="Оформить заявку">

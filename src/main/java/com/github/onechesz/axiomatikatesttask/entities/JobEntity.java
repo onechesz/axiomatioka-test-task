@@ -5,34 +5,34 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "work")
-public class WorkEntity {
+@Table(name = "job")
+public class JobEntity {
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "organization_name", nullable = false)
     private String organizationName;
-    @Column(name = "job", nullable = false)
-    private String job;
-    @Column(name = "work_start", nullable = false)
-    private LocalDate workStart;
-    @Column(name = "work_end")
-    private LocalDate workEnd;
+    @Column(name = "title", nullable = false)
+    private String title;
+    @Column(name = "start", nullable = false)
+    private LocalDate start;
+    @Column(name = "end")
+    private LocalDate end;
     @ManyToOne
     @JoinColumn(name = "client_id", nullable = false)
     private ClientEntity clientEntity;
 
-    public WorkEntity() {
+    public JobEntity() {
 
     }
 
-    public WorkEntity(int id, String organizationName, String job, LocalDate workStart, LocalDate workEnd, ClientEntity clientEntity) {
+    public JobEntity(int id, String organizationName, String title, LocalDate start, LocalDate end, ClientEntity clientEntity) {
         this.id = id;
         this.organizationName = organizationName;
-        this.job = job;
-        this.workStart = workStart;
-        this.workEnd = workEnd;
+        this.title = title;
+        this.start = start;
+        this.end = end;
         this.clientEntity = clientEntity;
     }
 
@@ -52,28 +52,28 @@ public class WorkEntity {
         this.organizationName = organizationName;
     }
 
-    public String getJob() {
-        return job;
+    public String getTitle() {
+        return title;
     }
 
-    public void setJob(String job) {
-        this.job = job;
+    public void setTitle(String job) {
+        this.title = job;
     }
 
     public LocalDate getWorkStart() {
-        return workStart;
+        return start;
     }
 
     public void setWorkStart(LocalDate workStart) {
-        this.workStart = workStart;
+        this.start = workStart;
     }
 
     public LocalDate getWorkEnd() {
-        return workEnd;
+        return end;
     }
 
     public void setWorkEnd(LocalDate workEnd) {
-        this.workEnd = workEnd;
+        this.end = workEnd;
     }
 
     public ClientEntity getClientEntity() {

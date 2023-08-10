@@ -1,8 +1,11 @@
 package com.github.onechesz.axiomatikatesttask.dto;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+
+import java.util.List;
 
 public class ClientDTO {
     @Size(min = 1, max = 255)
@@ -18,6 +21,8 @@ public class ClientDTO {
     private String address;
     @Pattern(regexp = "^8\\d{10}$")
     private String phoneNumber;
+    @Valid
+    private List<JobDTO> jobDTOList;
     @Max(value = 99999999)
     private String sum;
 
@@ -25,7 +30,7 @@ public class ClientDTO {
 
     }
 
-    public ClientDTO(String firstname, String surname, String lastname, String passport, String familyStatus, String address, String phoneNumber, String sum) {
+    public ClientDTO(String firstname, String surname, String lastname, String passport, String familyStatus, String address, String phoneNumber, List<JobDTO> jobDTOList, String sum) {
         this.firstname = firstname;
         this.surname = surname;
         this.lastname = lastname;
@@ -33,6 +38,7 @@ public class ClientDTO {
         this.familyStatus = familyStatus;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        this.jobDTOList = jobDTOList;
         this.sum = sum;
     }
 
@@ -100,6 +106,14 @@ public class ClientDTO {
         this.sum = sum;
     }
 
+    public List<JobDTO> getJobDTOList() {
+        return jobDTOList;
+    }
+
+    public void setJobDTOList(List<JobDTO> jobDTOList) {
+        this.jobDTOList = jobDTOList;
+    }
+
     @Override
     public String toString() {
         return "ClientDTO{" +
@@ -110,6 +124,7 @@ public class ClientDTO {
                 ", familyStatus='" + familyStatus + '\'' +
                 ", address='" + address + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", jobDTOList=" + jobDTOList +
                 ", sum='" + sum + '\'' +
                 '}';
     }

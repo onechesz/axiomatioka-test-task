@@ -27,7 +27,7 @@ public class ClientEntity {
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
     @OneToMany(mappedBy = "clientEntity")
-    private List<WorkEntity> workEntityList;
+    private List<JobEntity> jobEntityList;
     @Column(name = "sum", nullable = false)
     private BigDecimal sum;
 
@@ -35,7 +35,7 @@ public class ClientEntity {
 
     }
 
-    public ClientEntity(int id, String firstname, String surname, String lastname, String passport, String familyStatus, String address, String phoneNumber, List<WorkEntity> workEntityList, BigDecimal sum) {
+    public ClientEntity(int id, String firstname, String surname, String lastname, String passport, String familyStatus, String address, String phoneNumber, List<JobEntity> jobEntityList, BigDecimal sum) {
         this.id = id;
         this.firstname = firstname;
         this.surname = surname;
@@ -44,7 +44,7 @@ public class ClientEntity {
         this.familyStatus = familyStatus;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.workEntityList = workEntityList;
+        this.jobEntityList = jobEntityList;
         this.sum = sum;
     }
 
@@ -112,12 +112,12 @@ public class ClientEntity {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<WorkEntity> getWorkEntityList() {
-        return workEntityList;
+    public List<JobEntity> getWorkEntityList() {
+        return jobEntityList;
     }
 
-    public void setWorkEntityList(List<WorkEntity> workEntityList) {
-        this.workEntityList = workEntityList;
+    public void setWorkEntityList(List<JobEntity> jobEntityList) {
+        this.jobEntityList = jobEntityList;
     }
 
     public BigDecimal getSum() {
