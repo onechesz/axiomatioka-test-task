@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Оформление заявки</title>
+    </head>
+
+    <body>
+        <form th:action="@{/application}" th:method="POST" th:object="${client}">
+            <label for="firstname">Имя:</label>
+            <input id="firstname" name="firstname" th:field="*{firstname}" type="text">
+            <span style="color: red" th:errors="*{firstname}" th:if="@{#fields.hasErrors('firstname')}">Ошибки в имени.</span>
+
+            <label for="surname">Отчество:</label>
+            <input id="surname" name="surname" th:field="*{surname}" type="text">
+            <span style="color: red" th:errors="*{surname}" th:if="@{#fields.hasErrors('surname')}">Ошибки в отчестве.</span>
+
+            <label for="lastname">Фамилия:</label>
+            <input id="lastname" name="lastname" th:field="*{lastname}" type="text">
+            <span style="color: red" th:errors="*{lastname}" th:if="@{#fields.hasErrors('lastname')}">Ошибки в фамилии.</span>
+
+            <label for="passport">Серия и номер паспорта (без пробела):</label>
+            <input id="passport" name="passport" th:field="*{passport}" type="text">
+            <span style="color: red" th:errors="*{passport}" th:if="@{#fields.hasErrors('passport')}">Ошибки в паспорте.</span>
+
+            <label for="family_status">Семейное положение:</label>
+            <select id="family_status" name="familyStatus">
+                <option th:text="'в браке'" th:value="married"></option>
+                <option th:text="'одинок(-а)'" th:value="not_married"></option>
+            </select>
+
+            <label for="address">Адрес проживания:</label>
+            <input id="address" name="address" th:field="*{address}" type="text">
+            <span style="color: red" th:errors="*{address}" th:if="@{#fields.hasErrors('address')}">Ошибки в адресе.</span>
+
+            <label for="phone_number">Телефонный номер (без пробелов, начиная с 8):</label>
+            <input id="phone_number" name="phoneNumber" th:field="*{phoneNumber}" type="text">
+            <span style="color: red" th:errors="*{phoneNumber}" th:if="@{#fields.hasErrors('phone_number')}">Ошибки в паспорте.</span>
+
+            <label for="sum">Сумма кредита:</label>
+            <input id="sum" name="sum" th:field="*{sum}" type="text">
+            <span style="color: red" th:errors="*{sum}" th:if="@{#fields.hasErrors('sum')}">Ошибки в паспорте.</span>
+
+            <input type="submit" value="Оформить заявку">
+        </form>
+    </body>
+</html>
