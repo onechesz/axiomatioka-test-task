@@ -1,7 +1,9 @@
 package com.github.onechesz.axiomatikatesttask.dto;
 
+import com.github.onechesz.axiomatikatesttask.entities.JobEntity;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.jetbrains.annotations.Contract;
 
 import java.time.LocalDate;
 
@@ -23,6 +25,11 @@ public class JobDTO {
         this.title = title;
         this.start = start;
         this.end = end;
+    }
+
+    @Contract(value = "_ -> new", pure = true)
+    public static @org.jetbrains.annotations.NotNull JobEntity convertToJobEntity(@org.jetbrains.annotations.NotNull JobDTO jobDTO) {
+        return new JobEntity(jobDTO.organizationName, jobDTO.title, jobDTO.start, jobDTO.end);
     }
 
     public String getOrganizationName() {

@@ -1,10 +1,15 @@
 package com.github.onechesz.axiomatikatesttask.dto;
 
+import com.github.onechesz.axiomatikatesttask.entities.ClientEntity;
+import com.github.onechesz.axiomatikatesttask.entities.JobEntity;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class ClientDTO {
@@ -24,13 +29,13 @@ public class ClientDTO {
     @Valid
     private List<JobDTO> jobDTOList;
     @Max(value = 99999999)
-    private String sum;
+    private BigDecimal sum;
 
     public ClientDTO() {
 
     }
 
-    public ClientDTO(String firstname, String surname, String lastname, String passport, String familyStatus, String address, String phoneNumber, List<JobDTO> jobDTOList, String sum) {
+    public ClientDTO(String firstname, String surname, String lastname, String passport, String familyStatus, String address, String phoneNumber, List<JobDTO> jobDTOList, BigDecimal sum) {
         this.firstname = firstname;
         this.surname = surname;
         this.lastname = lastname;
@@ -40,6 +45,16 @@ public class ClientDTO {
         this.phoneNumber = phoneNumber;
         this.jobDTOList = jobDTOList;
         this.sum = sum;
+    }
+
+    @Contract(value = "_ -> new", pure = true)
+    public static @NotNull ClientEntity convertToClientEntity(@NotNull ClientDTO clientDTO) {
+        ClientEntity clientEntity = new ClientEntity(clientDTO.firstname, clientDTO.surname, clientDTO.lastname, clientDTO.passport, clientDTO.familyStatus, clientDTO.address, clientDTO.phoneNumber, clientDTO.jobDTOList.stream().map(JobDTO::convertToJobEntity).toList(), clientDTO.sum);
+
+        for (JobEntity jobEntity : clientEntity.getJobEntityList())
+            jobEntity.setClientEntity(clientEntity);
+
+        return clientEntity;
     }
 
     public String getFirstname() {
@@ -98,11 +113,11 @@ public class ClientDTO {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getSum() {
+    public BigDecimal getSum() {
         return sum;
     }
 
-    public void setSum(String sum) {
+    public void setSum(BigDecimal sum) {
         this.sum = sum;
     }
 
@@ -116,16 +131,6 @@ public class ClientDTO {
 
     @Override
     public String toString() {
-        return "ClientDTO{" +
-                "firstname='" + firstname + '\'' +
-                ", surname='" + surname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", passport='" + passport + '\'' +
-                ", familyStatus='" + familyStatus + '\'' +
-                ", address='" + address + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", jobDTOList=" + jobDTOList +
-                ", sum='" + sum + '\'' +
-                '}';
+        return "ClientDTO{" + "firstname='" + firstname + '\'' + ", surname='" + surname + '\'' + ", lastname='" + lastname + '\'' + ", passport='" + passport + '\'' + ", familyStatus='" + familyStatus + '\'' + ", address='" + address + '\'' + ", phoneNumber='" + phoneNumber + '\'' + ", jobDTOList=" + jobDTOList + ", sum='" + sum + '\'' + '}';
     }
 }

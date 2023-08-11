@@ -26,13 +26,25 @@ public class ClientEntity {
     private String address;
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
-    @OneToMany(mappedBy = "clientEntity")
+    @OneToMany(mappedBy = "clientEntity", cascade = CascadeType.ALL)
     private List<JobEntity> jobEntityList;
     @Column(name = "sum", nullable = false)
     private BigDecimal sum;
 
     public ClientEntity() {
 
+    }
+
+    public ClientEntity(String firstname, String surname, String lastname, String passport, String familyStatus, String address, String phoneNumber, List<JobEntity> jobEntityList, BigDecimal sum) {
+        this.firstname = firstname;
+        this.surname = surname;
+        this.lastname = lastname;
+        this.passport = passport;
+        this.familyStatus = familyStatus;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.jobEntityList = jobEntityList;
+        this.sum = sum;
     }
 
     public ClientEntity(int id, String firstname, String surname, String lastname, String passport, String familyStatus, String address, String phoneNumber, List<JobEntity> jobEntityList, BigDecimal sum) {
@@ -112,11 +124,11 @@ public class ClientEntity {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<JobEntity> getWorkEntityList() {
+    public List<JobEntity> getJobEntityList() {
         return jobEntityList;
     }
 
-    public void setWorkEntityList(List<JobEntity> jobEntityList) {
+    public void setJobEntityList(List<JobEntity> jobEntityList) {
         this.jobEntityList = jobEntityList;
     }
 

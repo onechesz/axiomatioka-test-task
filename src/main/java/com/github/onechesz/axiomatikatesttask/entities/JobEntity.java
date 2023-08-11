@@ -17,7 +17,7 @@ public class JobEntity {
     private String title;
     @Column(name = "start", nullable = false)
     private LocalDate start;
-    @Column(name = "end")
+    @Column(name = "\"end\"")
     private LocalDate end;
     @ManyToOne
     @JoinColumn(name = "client_id", nullable = false)
@@ -25,6 +25,13 @@ public class JobEntity {
 
     public JobEntity() {
 
+    }
+
+    public JobEntity(String organizationName, String title, LocalDate start, LocalDate end) {
+        this.organizationName = organizationName;
+        this.title = title;
+        this.start = start;
+        this.end = end;
     }
 
     public JobEntity(int id, String organizationName, String title, LocalDate start, LocalDate end, ClientEntity clientEntity) {
