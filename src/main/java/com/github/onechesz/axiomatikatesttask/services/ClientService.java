@@ -17,7 +17,7 @@ public class ClientService {
         this.clientDAO = clientDAO;
     }
 
-    public void processApplication(ClientDTO clientDTO) {
+    public ClientEntity processApplication(ClientDTO clientDTO) {
         ClientEntity clientEntity = ClientDTO.convertToClientEntity(clientDTO);
         boolean isApproved = ThreadLocalRandom.current().nextBoolean();
         StatusEntity statusEntity = new StatusEntity(isApproved, LocalDate.now(), clientEntity);
@@ -27,5 +27,7 @@ public class ClientService {
 
         clientEntity.setStatusEntity(statusEntity);
         clientDAO.save(clientEntity);
+
+        return clientEntity;
     }
 }

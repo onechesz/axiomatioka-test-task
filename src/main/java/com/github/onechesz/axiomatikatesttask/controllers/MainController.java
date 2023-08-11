@@ -2,6 +2,7 @@ package com.github.onechesz.axiomatikatesttask.controllers;
 
 import com.github.onechesz.axiomatikatesttask.dto.ClientDTO;
 import com.github.onechesz.axiomatikatesttask.services.ClientService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
@@ -34,12 +35,19 @@ public class MainController {
     }
 
     @PostMapping(path = "/application")
-    public String applicationProcess(@ModelAttribute(name = "client") @Valid ClientDTO clientDTO, @NotNull BindingResult bindingResult) {
+    public String applicationProcess(HttpServletRequest httpServletRequest, @ModelAttribute(name = "client") @Valid ClientDTO clientDTO, @NotNull BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "main/application";
 
-        clientService.processApplication(clientDTO);
+        httpServletRequest.getSession().setAttribute("client", clientService.processApplication(clientDTO));
 
-        return "redirect:/";
+        return "redirect:/decision";
+    }
+
+    @GetMapping(path = "/decision")
+    public String decisionView(@NotNull HttpServletRequest httpServletRequest, @NotNull Model model) {
+        model.addAttribute("client", httpServletRequest.getSession().getAttribute("client"));
+
+        return "main/decision";
     }
 }

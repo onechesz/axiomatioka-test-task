@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Решение по кредиту</title>
+    </head>
+
+    <body>
+        <div th:if="${client.statusEntity.isApproved == true}">
+            <h1>Вам одобрен кредит</h1>
+
+            <p th:inline="text">Сумма (в рублях): [[${client.sum}]]</p>
+            <p th:inline="text">Срок (в днях): [[${client.statusEntity.daysTerm}]]</p>
+        </div>
+
+        <div th:if="${client.statusEntity.isApproved == false}">
+            <h1>Вам не одобрен кредит</h1>
+        </div>
+    </body>
+</html>
