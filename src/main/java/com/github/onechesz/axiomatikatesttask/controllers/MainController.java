@@ -65,6 +65,13 @@ public class MainController {
         return "redirect:/";
     }
 
+    @PostMapping(path = "/new-client")
+    public String newClientProcess(@NotNull HttpServletRequest httpServletRequest) {
+        httpServletRequest.getSession().removeAttribute("client");
+
+        return "redirect:/application";
+    }
+
     @GetMapping(path = "/agreement")
     public String agreementView(@NotNull HttpServletRequest httpServletRequest, Model model) {
         ClientEntity clientEntity = (ClientEntity) httpServletRequest.getSession().getAttribute("client");

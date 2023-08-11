@@ -17,6 +17,12 @@
 
         <div th:if="${client.statusEntity.isApproved == false}">
             <h1>Вам не одобрен кредит</h1>
+
+            <form th:action="@{/new-client}" th:method="POST">
+                <p>Заявка для нового клиента:</p>
+
+                <input type="submit" value="Оформить">
+            </form>
         </div>
     </body>
 </html>
