@@ -8,11 +8,11 @@ import org.jetbrains.annotations.Contract;
 import java.time.LocalDate;
 
 public class JobDTO {
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 255, message = "должно быть от 1 до 255 симоволов")
     private String organizationName;
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 255, message = "должно быть от 1 до 255 символов")
     private String title;
-    @NotNull
+    @NotNull(message = "не может быть пустым")
     private LocalDate start;
     private LocalDate end;
 

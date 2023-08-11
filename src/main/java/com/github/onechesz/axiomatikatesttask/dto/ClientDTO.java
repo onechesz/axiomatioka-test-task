@@ -13,22 +13,22 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class ClientDTO {
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 255, message = "должно быть длиной от 1 до 255 символов.")
     private String firstname;
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 255, message = "должно быть длиной от 1 до 255 символов.")
     private String surname;
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 255, message = "должна быть длиной от 1 до 255 символов.")
     private String lastname;
-    @Pattern(regexp = "^\\d{10}$")
+    @Pattern(regexp = "^\\d{10}$", message = "должен состоять из 10 цифр без пробелов.")
     private String passport;
     private String familyStatus;
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 255, message = "должен быть длиной от 1 до 255 символов.")
     private String address;
-    @Pattern(regexp = "^8\\d{10}$")
+    @Pattern(regexp = "^8\\d{10}$", message = "дожен состоять из 11 цифр, начиная с 8, без пробелов")
     private String phoneNumber;
     @Valid
     private List<JobDTO> jobDTOList;
-    @Max(value = 99999999)
+    @Max(value = 99999999, message = "максимальное значение - 99999999")
     private BigDecimal sum;
 
     public ClientDTO() {
