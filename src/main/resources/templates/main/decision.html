@@ -12,6 +12,7 @@
 
             <p th:inline="text">Сумма (в рублях): [[${client.sum}]]</p>
             <p th:inline="text">Срок (в днях): [[${client.statusEntity.daysTerm}]]</p>
+            <p>Для завершения операции подпишите <a th:href="@{/agreement}">кредитный договор</a>.</p>
         </div>
 
         <div th:if="${client.statusEntity.isApproved == false}">
