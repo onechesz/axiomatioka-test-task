@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "credit_agreement")
-public class CreditAgreement {
+public class CreditAgreementEntity {
     @Column(name = "client_id")
     @Id
     private int clientId;
@@ -19,16 +19,16 @@ public class CreditAgreement {
     @JoinColumn(name = "client_id")
     private ClientEntity clientEntity;
 
-    public CreditAgreement() {
+    public CreditAgreementEntity() {
 
     }
 
-    public CreditAgreement(boolean isSigned, ClientEntity clientEntity) {
+    public CreditAgreementEntity(boolean isSigned, ClientEntity clientEntity) {
         this.isSigned = isSigned;
         this.clientEntity = clientEntity;
     }
 
-    public CreditAgreement(int clientId, boolean isSigned, LocalDateTime signDate, ClientEntity clientEntity) {
+    public CreditAgreementEntity(int clientId, boolean isSigned, LocalDateTime signDate, ClientEntity clientEntity) {
         this.clientId = clientId;
         this.isSigned = isSigned;
         this.signDate = signDate;

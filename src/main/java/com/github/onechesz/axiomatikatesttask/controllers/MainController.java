@@ -1,7 +1,9 @@
 package com.github.onechesz.axiomatikatesttask.controllers;
 
 import com.github.onechesz.axiomatikatesttask.dto.ClientDTO;
+import com.github.onechesz.axiomatikatesttask.entities.ClientEntity;
 import com.github.onechesz.axiomatikatesttask.services.ClientService;
+import com.github.onechesz.axiomatikatesttask.services.CreditAgreementService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.jetbrains.annotations.NotNull;
@@ -17,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(path = "")
 public class MainController {
     private final ClientService clientService;
+    private final CreditAgreementService creditAgreementService;
 
-    public MainController(ClientService clientService) {
+    public MainController(ClientService clientService, CreditAgreementService creditAgreementService) {
         this.clientService = clientService;
+        this.creditAgreementService = creditAgreementService;
     }
 
     @GetMapping(path = "")
@@ -28,10 +32,14 @@ public class MainController {
     }
 
     @GetMapping(path = "/application")
-    public String applicationView(@NotNull Model model) {
-        model.addAttribute("client", new ClientDTO());
+    public String applicationView(@NotNull HttpServletRequest httpServletRequest, @NotNull Model model) {
+        if (httpServletRequest.getSession().getAttribute("client") == null) {
+            model.addAttribute("client", new ClientDTO());
 
-        return "main/application";
+            return "main/application";
+        }
+
+        return "redirect:/decision";
     }
 
     @PostMapping(path = "/application")
@@ -46,8 +54,34 @@ public class MainController {
 
     @GetMapping(path = "/decision")
     public String decisionView(@NotNull HttpServletRequest httpServletRequest, @NotNull Model model) {
-        model.addAttribute("client", httpServletRequest.getSession().getAttribute("client"));
+        ClientEntity clientEntity = (ClientEntity) httpServletRequest.getSession().getAttribute("client");
 
-        return "main/decision";
+        if (clientEntity != null) {
+            model.addAttribute("client", clientEntity);
+
+            return "main/decision";
+        }
+
+        return "redirect:/";
+    }
+
+    @GetMapping(path = "/agreement")
+    public String agreementView(@NotNull HttpServletRequest httpServletRequest, Model model) {
+        ClientEntity clientEntity = (ClientEntity) httpServletRequest.getSession().getAttribute("client");
+
+        if (clientEntity != null && clientEntity.getStatusEntity().isApproved()) {
+            model.addAttribute("client", clientEntity);
+
+            return "main/agreement";
+        }
+
+        return "redirect:/application";
+    }
+
+    @PostMapping(path = "/agreement")
+    public String agreementProcess(@NotNull HttpServletRequest httpServletRequest) {
+        creditAgreementService.save((ClientEntity) httpServletRequest.getSession().getAttribute("client"));
+
+        return "redirect:/agreement";
     }
 }

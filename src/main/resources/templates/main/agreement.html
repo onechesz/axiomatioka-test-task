@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Кредитный договор</title>
+    </head>
+
+    <body>
+        <h1>Кредитный договор</h1>
+
+        <h2>Информация о клиенте</h2>
+        <ul>
+            <li th:inline="text">ФИО: [[${client.lastname}]] [[${client.firstname}]] [[${client.surname}]]</li>
+            <li th:inline="text">паспорт: [[${client.passport}]]</li>
+            <li th:inline="text">номер телефона: [[${client.phoneNumber}]]</li>
+        </ul>
+
+        <h2>Информация о кредите</h2>
+        <ul>
+            <li th:inline="text">сумма (в рублях): [[${client.sum}]]</li>
+            <li th:inline="text">срок (в днях): [[${client.statusEntity.daysTerm}]]</li>
+        </ul>
+
+        <h2>Подпись</h2>
+        <form th:if="${client.creditAgreementEntity.isSigned == false}" th:action="@{/agreement}" th:method="POST" onsubmit="return validateForm()">
+            <label for="agree">Я соглашаюсь на <a href="#">условия</a> и обязуюсь выплатить кредит в срок:</label>
+            <input type="checkbox" id="agree">
+
+            <input type="submit" value="Подписать договор">
+        </form>
+        <p th:if="${client.creditAgreementEntity.isSigned == true}">Вы подписали кредитный договор.</p>
+
+        <script>
+            function validateForm() {
+                const checkbox = document.getElementById('agree');
+
+                if (!checkbox.checked) {
+                    alert("Для подписания договора необходимо согласиться с условиями.");
+                    return false;
+                }
+            }
+        </script>
+    </body>
+</html>

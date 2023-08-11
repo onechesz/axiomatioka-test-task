@@ -35,7 +35,7 @@ public class ClientEntity {
     private StatusEntity statusEntity;
     @OneToOne(mappedBy = "clientEntity", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
-    private CreditAgreement creditAgreement;
+    private CreditAgreementEntity creditAgreementEntity;
 
     public ClientEntity() {
 
@@ -53,7 +53,7 @@ public class ClientEntity {
         this.sum = sum;
     }
 
-    public ClientEntity(int id, String firstname, String surname, String lastname, String passport, String familyStatus, String address, String phoneNumber, List<JobEntity> jobEntityList, BigDecimal sum, StatusEntity statusEntity, CreditAgreement creditAgreement) {
+    public ClientEntity(int id, String firstname, String surname, String lastname, String passport, String familyStatus, String address, String phoneNumber, List<JobEntity> jobEntityList, BigDecimal sum, StatusEntity statusEntity, CreditAgreementEntity creditAgreementEntity) {
         this.id = id;
         this.firstname = firstname;
         this.surname = surname;
@@ -65,7 +65,7 @@ public class ClientEntity {
         this.jobEntityList = jobEntityList;
         this.sum = sum;
         this.statusEntity = statusEntity;
-        this.creditAgreement = creditAgreement;
+        this.creditAgreementEntity = creditAgreementEntity;
     }
 
     public int getId() {
@@ -156,11 +156,11 @@ public class ClientEntity {
         this.statusEntity = statusEntity;
     }
 
-    public CreditAgreement getCreditAgreement() {
-        return creditAgreement;
+    public CreditAgreementEntity getCreditAgreementEntity() {
+        return creditAgreementEntity;
     }
 
-    public void setCreditAgreement(CreditAgreement creditAgreement) {
-        this.creditAgreement = creditAgreement;
+    public void setCreditAgreementEntity(CreditAgreementEntity creditAgreementEntity) {
+        this.creditAgreementEntity = creditAgreementEntity;
     }
 }
