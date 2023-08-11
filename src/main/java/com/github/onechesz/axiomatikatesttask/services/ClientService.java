@@ -2,7 +2,12 @@ package com.github.onechesz.axiomatikatesttask.services;
 
 import com.github.onechesz.axiomatikatesttask.dao.ClientDAO;
 import com.github.onechesz.axiomatikatesttask.dto.ClientDTO;
+import com.github.onechesz.axiomatikatesttask.entities.ClientEntity;
+import com.github.onechesz.axiomatikatesttask.entities.StatusEntity;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class ClientService {
@@ -13,6 +18,14 @@ public class ClientService {
     }
 
     public void processApplication(ClientDTO clientDTO) {
-        clientDAO.save(ClientDTO.convertToClientEntity(clientDTO));
+        ClientEntity clientEntity = ClientDTO.convertToClientEntity(clientDTO);
+        boolean isApproved = ThreadLocalRandom.current().nextBoolean();
+        StatusEntity statusEntity = new StatusEntity(isApproved, LocalDate.now(), clientEntity);
+
+        if (isApproved)
+            statusEntity.setDaysTerm(ThreadLocalRandom.current().nextInt(30, 365));
+
+        clientEntity.setStatusEntity(statusEntity);
+        clientDAO.save(clientEntity);
     }
 }

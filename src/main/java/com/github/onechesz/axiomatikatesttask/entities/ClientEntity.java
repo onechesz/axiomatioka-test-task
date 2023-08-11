@@ -30,6 +30,9 @@ public class ClientEntity {
     private List<JobEntity> jobEntityList;
     @Column(name = "sum", nullable = false)
     private BigDecimal sum;
+    @OneToOne(mappedBy = "clientEntity", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private StatusEntity statusEntity;
 
     public ClientEntity() {
 
@@ -47,7 +50,7 @@ public class ClientEntity {
         this.sum = sum;
     }
 
-    public ClientEntity(int id, String firstname, String surname, String lastname, String passport, String familyStatus, String address, String phoneNumber, List<JobEntity> jobEntityList, BigDecimal sum) {
+    public ClientEntity(int id, String firstname, String surname, String lastname, String passport, String familyStatus, String address, String phoneNumber, List<JobEntity> jobEntityList, BigDecimal sum, StatusEntity statusEntity) {
         this.id = id;
         this.firstname = firstname;
         this.surname = surname;
@@ -58,6 +61,7 @@ public class ClientEntity {
         this.phoneNumber = phoneNumber;
         this.jobEntityList = jobEntityList;
         this.sum = sum;
+        this.statusEntity = statusEntity;
     }
 
     public int getId() {
@@ -138,5 +142,13 @@ public class ClientEntity {
 
     public void setSum(BigDecimal sum) {
         this.sum = sum;
+    }
+
+    public StatusEntity getStatusEntity() {
+        return statusEntity;
+    }
+
+    public void setStatusEntity(StatusEntity statusEntity) {
+        this.statusEntity = statusEntity;
     }
 }
