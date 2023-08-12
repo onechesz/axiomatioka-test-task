@@ -7,6 +7,8 @@
     </head>
 
     <body>
+        <h1>Оформление заявки</h1>
+
         <form th:action="@{/client/application}" th:method="POST" th:object="${client}">
             <label for="firstname">Имя:</label>
             <input th:field="*{firstname}" id="firstname" name="firstname" type="text">

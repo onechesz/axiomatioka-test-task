@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Список клиентов</title>
+    </head>
+
+    <body>
+        <h1>Список клиентов</h1>
+
+        <table>
+            <tr>
+                <th>Идентификатор</th>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Паспорт</th>
+                <th>Семейное положение</th>
+                <th>Адрес</th>
+                <th>Номер телефона</th>
+            </tr>
+            <tr th:each="client : ${clients}">
+                <td th:text="${client.id}"></td>
+                <td th:text="${client.lastname}"></td>
+                <td th:text="${client.firstname}"></td>
+                <td th:text="${client.surname}"></td>
+                <td th:text="${client.passport}"></td>
+                <td th:text="${client.familyStatus}"></td>
+                <td th:text="${client.address}"></td>
+                <td th:text="${client.phoneNumber}"></td>
+            </tr>
+        </table>
+    </body>
+</html>

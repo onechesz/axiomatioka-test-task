@@ -8,6 +8,7 @@ import com.github.onechesz.axiomatikatesttask.entities.StatusEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Service
@@ -34,5 +35,9 @@ public class ClientService {
         clientDAO.save(clientEntity);
 
         return clientEntity;
+    }
+
+    public List<ClientEntity> findAll() {
+        return clientDAO.findAll();
     }
 }

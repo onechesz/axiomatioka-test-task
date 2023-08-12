@@ -25,7 +25,7 @@ public class SecurityConfig {
         return httpSecurity
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                     authorizationManagerRequestMatcherRegistry.requestMatchers("/manage/login").permitAll();
-                    authorizationManagerRequestMatcherRegistry.requestMatchers("/manage/**").hasAnyRole("USER", "ADMIN");
+//                    authorizationManagerRequestMatcherRegistry.requestMatchers("/manage/**").hasAnyRole("USER", "ADMIN");
                     authorizationManagerRequestMatcherRegistry.anyRequest().permitAll();
                 })
                 .formLogin(httpSecurityFormLoginConfigurer -> {
