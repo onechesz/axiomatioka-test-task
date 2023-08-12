@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="UTF-8">
         <title>Главная</title>
@@ -9,7 +9,11 @@
     <body>
         <h1>Главная</h1>
 
-        <p><a th:href="@{/client/application}">Оформить заявку на кредит.</a></p>
-        <p><a th:href="@{/manage/login}">Войти в качестве менеджера.</a></p>
+        <p><a th:href="@{/client/application}">Оформить заявку на кредит</a></p>
+        <p sec:authorize="isAnonymous()"><a th:href="@{/manage/login}">Войти в качестве менеджера</a></p>
+        <p sec:authorize="isAuthenticated()"><a th:href="@{/manage}">Кабинет менеджера</a></p>
+        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" th:method="POST">
+            <input type="submit" value="Выйти">
+        </form>
     </body>
 </html>

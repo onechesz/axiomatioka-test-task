@@ -24,8 +24,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(@NotNull HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
-                    authorizationManagerRequestMatcherRegistry.requestMatchers("/manage/login").permitAll();
-//                    authorizationManagerRequestMatcherRegistry.requestMatchers("/manage/**").hasAnyRole("USER", "ADMIN");
+                    authorizationManagerRequestMatcherRegistry.requestMatchers("/manage/login").anonymous();
+                    authorizationManagerRequestMatcherRegistry.requestMatchers("/manage/**").hasAnyRole("USER", "ADMIN");
                     authorizationManagerRequestMatcherRegistry.anyRequest().permitAll();
                 })
                 .formLogin(httpSecurityFormLoginConfigurer -> {

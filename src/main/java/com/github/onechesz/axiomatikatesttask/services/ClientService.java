@@ -62,9 +62,9 @@ public class ClientService {
     public List<ClientStatusDTO> findAllApplications() {
         return clientDAO.findAllApplications().stream().peek(clientStatusDTO -> {
             if (clientStatusDTO.isApproved())
-                clientStatusDTO.setIsApprovedRu("одобрен");
+                clientStatusDTO.setIsApprovedRu("одобрена");
             else
-                clientStatusDTO.setIsApprovedRu("не одобрен");
+                clientStatusDTO.setIsApprovedRu("не одобрена");
         }).toList();
     }
 

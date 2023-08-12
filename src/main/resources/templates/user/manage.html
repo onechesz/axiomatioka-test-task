@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="UTF-8">
         <title>Личный кабинет менеджера</title>
     </head>
 
     <body>
+        <aside>
+            <ul>
+                <li><a th:href="@{/}">Главная</a></li>
+                <li><a th:href="@{/application}">Оформить заявку на кредит</a></li>
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/manage}">Кабинет менеджера</a></li>
+            </ul>
+        </aside>
+
         <h1>Личный кабинет менеджера</h1>
 
         <ul>
