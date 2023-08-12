@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping(path = "/manage")
@@ -27,8 +28,11 @@ public class UserController {
     }
 
     @GetMapping(path = "/clients")
-    public String clientsView(@NotNull Model model) {
-        model.addAttribute("clients", clientService.findAll());
+    public String clientsView(@RequestParam(name = "lastname", required = false) String lastname, @RequestParam(name = "firstname", required = false) String firstname, @RequestParam(name = "surname", required = false) String surname, @RequestParam(name = "passport", required = false) String passport, @RequestParam(name = "phoneNumber", required = false) String phoneNumber, @NotNull Model model) {
+        if (lastname == null && firstname == null && surname == null && passport == null && phoneNumber == null)
+            model.addAttribute("clients", clientService.findAll());
+        else
+            model.addAttribute("clients", clientService.search(lastname, firstname, surname, passport, phoneNumber));
 
         return "user/clients";
     }

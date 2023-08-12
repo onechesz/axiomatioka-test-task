@@ -38,6 +38,22 @@ public class ClientService {
     }
 
     public List<ClientEntity> findAll() {
-        return clientDAO.findAll();
+        return clientDAO.findAll().stream().peek(clientEntity -> {
+            switch (clientEntity.getFamilyStatus()) {
+                case "married" -> clientEntity.setFamilyStatus("в браке");
+                case "not_married" -> clientEntity.setFamilyStatus("одинок(-а)");
+            }
+
+        }).toList();
+    }
+
+    public List<ClientEntity> search(String lastname, String firstname, String surname, String passport, String phoneNumber) {
+        return clientDAO.search(lastname, firstname, surname, passport, phoneNumber).stream().peek(clientEntity -> {
+            switch (clientEntity.getFamilyStatus()) {
+                case "married" -> clientEntity.setFamilyStatus("в браке");
+                case "not_married" -> clientEntity.setFamilyStatus("одинок(-а)");
+            }
+
+        }).toList();
     }
 }

@@ -3,11 +3,32 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Список клиентов</title>
+        <title>Поиск клиентов</title>
     </head>
 
     <body>
-        <h1>Список клиентов</h1>
+        <h1>Поиск клиентов</h1>
+
+        <h2>Данные для поиска</h2>
+
+        <form th:action="@{/manage/clients}" id="search_form">
+            <label for="lastname">Фамилия:</label>
+            <input type="text" name="lastname" id="lastname">
+
+            <label for="firstname">Имя:</label>
+            <input type="text" name="firstname" id="firstname">
+
+            <label for="surname">Отчество:</label>
+            <input type="text" name="surname" id="surname">
+
+            <label for="passport">Паспорт:</label>
+            <input type="text" name="passport" id="passport">
+
+            <label for="phone_number">Номер телефона:</label>
+            <input type="text" name="phoneNumber" id="phone_number">
+
+            <input type="submit" value="Поиск">
+        </form>
 
         <table>
             <tr>
@@ -31,5 +52,21 @@
                 <td th:text="${client.phoneNumber}"></td>
             </tr>
         </table>
+
+        <script>
+            const myForm = document.getElementById('search_form');
+
+            myForm.addEventListener('submit', function (e) {
+                const allInputs = myForm.getElementsByTagName('input');
+
+                for (let i = 0; i < allInputs.length; i++) {
+                    const input = allInputs[i];
+
+                    if (input.name && !input.value) {
+                        input.removeAttribute('name');
+                    }
+                }
+            });
+        </script>
     </body>
 </html>
