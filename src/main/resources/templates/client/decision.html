@@ -12,13 +12,13 @@
 
             <p th:inline="text">Сумма (в рублях): [[${client.sum}]]</p>
             <p th:inline="text">Срок (в днях): [[${client.statusEntity.daysTerm}]]</p>
-            <p>Для завершения операции подпишите <a th:href="@{/agreement}">кредитный договор</a>.</p>
+            <p>Для завершения операции подпишите <a th:href="@{/client/agreement}">кредитный договор</a>.</p>
         </div>
 
         <div th:if="${client.statusEntity.isApproved == false}">
             <h1>Вам не одобрен кредит</h1>
 
-            <form th:action="@{/new-client}" th:method="POST">
+            <form th:action="@{/client/new-client}" th:method="POST">
                 <p>Заявка для нового клиента:</p>
 
                 <input type="submit" value="Оформить">

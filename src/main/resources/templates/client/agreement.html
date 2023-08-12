@@ -23,7 +23,7 @@
         </ul>
 
         <h2>Подпись</h2>
-        <form th:if="${client.creditAgreementEntity.isSigned == false}" th:action="@{/agreement}" th:method="POST" onsubmit="return validateForm()">
+        <form th:if="${client.creditAgreementEntity.isSigned == false}" th:action="@{/client/agreement}" th:method="POST" onsubmit="return validateForm()">
             <label for="agree">Я соглашаюсь на <a href="#">условия</a> и обязуюсь выплатить кредит в срок:</label>
             <input type="checkbox" id="agree">
 

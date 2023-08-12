@@ -24,13 +24,15 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(@NotNull HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
+                    authorizationManagerRequestMatcherRegistry.requestMatchers("/manage/login").permitAll();
+                    authorizationManagerRequestMatcherRegistry.requestMatchers("/manage/**").hasAnyRole("USER", "ADMIN");
                     authorizationManagerRequestMatcherRegistry.anyRequest().permitAll();
                 })
                 .formLogin(httpSecurityFormLoginConfigurer -> {
-                    httpSecurityFormLoginConfigurer.loginPage("/login");
+                    httpSecurityFormLoginConfigurer.loginPage("/manage/login");
                     httpSecurityFormLoginConfigurer.loginProcessingUrl("/login");
-                    httpSecurityFormLoginConfigurer.failureUrl("/login");
-                    httpSecurityFormLoginConfigurer.defaultSuccessUrl("/", true);
+                    httpSecurityFormLoginConfigurer.failureUrl("/manage/login");
+                    httpSecurityFormLoginConfigurer.defaultSuccessUrl("/manage", true);
                 })
                 .logout(httpSecurityLogoutConfigurer -> {
                     httpSecurityLogoutConfigurer.logoutUrl("/logout");

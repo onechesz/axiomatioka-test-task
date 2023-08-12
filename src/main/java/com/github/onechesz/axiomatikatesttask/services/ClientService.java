@@ -20,7 +20,7 @@ public class ClientService {
 
     public ClientEntity processApplication(ClientDTO clientDTO) {
         ClientEntity clientEntity = ClientDTO.convertToClientEntity(clientDTO);
-        boolean isApproved = false;
+        boolean isApproved = true;
         StatusEntity statusEntity = new StatusEntity(isApproved, LocalDate.now(), clientEntity);
 
         if (isApproved) {

@@ -7,7 +7,7 @@
     </head>
 
     <body>
-        <form th:action="@{/application}" th:method="POST" th:object="${client}">
+        <form th:action="@{/client/application}" th:method="POST" th:object="${client}">
             <label for="firstname">Имя:</label>
             <input th:field="*{firstname}" id="firstname" name="firstname" type="text">
             <span style="color: red" th:errors="*{firstname}" th:if="@{#fields.hasErrors('firstname')}">Ошибки в имени.</span>
