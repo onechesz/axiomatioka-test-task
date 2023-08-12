@@ -13,6 +13,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Необходим для обработки данных между контроллером и БД
+ */
 @Service
 public class ClientService {
     private final ClientDAO clientDAO;
@@ -21,6 +24,13 @@ public class ClientService {
         this.clientDAO = clientDAO;
     }
 
+    /**
+     * Обрабатывает информацию из контроллера (конвертация DTO в сущность, вынос случайного решения по поводу кредита,
+     * установка текущего времени, создание кредитного договора при необходимости и передаёт её в DAO для сохранения
+     *
+     * @param clientDTO
+     * @return
+     */
     public ClientEntity processApplication(ClientDTO clientDTO) {
         ClientEntity clientEntity = ClientDTO.convertToClientEntity(clientDTO);
         boolean isApproved = ThreadLocalRandom.current().nextBoolean();
@@ -39,6 +49,12 @@ public class ClientService {
         return clientEntity;
     }
 
+    /**
+     * Передаёт информацию из DAO в контроллер, обрабатывая её ("married" заменяется на "в браке", а "not_married" - на
+     * "одинок(-а)")
+     *
+     * @return
+     */
     public List<ClientEntity> findAll() {
         return clientDAO.findAll().stream().peek(clientEntity -> {
             switch (clientEntity.getFamilyStatus()) {
@@ -49,6 +65,12 @@ public class ClientService {
         }).toList();
     }
 
+    /**
+     * Передаёт информацию из DAO в контроллер, обрабатывая её ("married" заменяется на "в браке", а "not_married" - на
+     * "одинок(-а)")
+     *
+     * @return
+     */
     public List<ClientEntity> search(String lastname, String firstname, String surname, String passport, String phoneNumber) {
         return clientDAO.search(lastname, firstname, surname, passport, phoneNumber).stream().peek(clientEntity -> {
             switch (clientEntity.getFamilyStatus()) {
@@ -59,21 +81,28 @@ public class ClientService {
         }).toList();
     }
 
+    /**
+     * Передаёт информацию из DAO в контроллер, меняя у каждой записи статус с "true" на "одобрена" и с "false" на "не
+     * одобрена"
+     *
+     * @return
+     */
     public List<ClientStatusDTO> findAllApplications() {
         return clientDAO.findAllApplications().stream().peek(clientStatusDTO -> {
-            if (clientStatusDTO.isApproved())
-                clientStatusDTO.setIsApprovedRu("одобрена");
-            else
-                clientStatusDTO.setIsApprovedRu("не одобрена");
+            if (clientStatusDTO.isApproved()) clientStatusDTO.setIsApprovedRu("одобрена");
+            else clientStatusDTO.setIsApprovedRu("не одобрена");
         }).toList();
     }
 
+    /**
+     * Передаёт информацию из DAO в контроллер, меняя у каждой записи статус с "true" на "да" и с "false" на "нет"
+     *
+     * @return
+     */
     public List<ClientCreditAgreementDTO> findAllCreditAgreements() {
         return clientDAO.findAllCreditAgreements().stream().peek(clientCreditAgreementDTO -> {
-            if (clientCreditAgreementDTO.isSigned())
-                clientCreditAgreementDTO.setIsSignedRu("да");
-            else
-                clientCreditAgreementDTO.setIsSignedRu("нет");
+            if (clientCreditAgreementDTO.isSigned()) clientCreditAgreementDTO.setIsSignedRu("да");
+            else clientCreditAgreementDTO.setIsSignedRu("нет");
         }).toList();
     }
 }

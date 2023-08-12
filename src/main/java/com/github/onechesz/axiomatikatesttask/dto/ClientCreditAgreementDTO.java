@@ -2,6 +2,9 @@ package com.github.onechesz.axiomatikatesttask.dto;
 
 import java.time.LocalDateTime;
 
+/**
+ * Необходим для передачи данных из БД менеджеру при поиске всех кредитных договоров
+ */
 public class ClientCreditAgreementDTO {
     private int id;
     private String lastname;

@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
+/**
+ * Репрезентует таблицу "job" базы данных, представляет из себя сущность работ клиента
+ */
 @Entity
 @Table(name = "job")
 public class JobEntity {

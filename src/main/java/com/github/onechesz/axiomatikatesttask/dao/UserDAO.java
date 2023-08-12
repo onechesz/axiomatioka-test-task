@@ -8,6 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * Связывается с БД для обработки информации, связанной с сущностью "user"
+ */
 @Component
 @Transactional
 public class UserDAO {
@@ -17,6 +20,12 @@ public class UserDAO {
         this.sessionFactory = sessionFactory;
     }
 
+    /**
+     * Ищет пользователя в БД по имени и при наличии возвращает его, а при обратном результате выбрасывает исключение
+     *
+     * @param name
+     * @return
+     */
     @Transactional(readOnly = true)
     public UserEntity findByUsername(String name) {
         Session session = sessionFactory.getCurrentSession();

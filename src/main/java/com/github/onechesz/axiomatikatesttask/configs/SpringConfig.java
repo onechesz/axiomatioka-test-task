@@ -17,6 +17,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+/**
+ * Базовая конфигурация Spring приложения
+ */
 @Configuration
 @ComponentScan("com.github.onechesz.axiomatikatesttask")
 @PropertySource("classpath:hibernate.properties")
@@ -30,6 +33,11 @@ public class SpringConfig {
         this.environment = environment;
     }
 
+    /**
+     * Конфигурация источника данных
+     *
+     * @return
+     */
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
@@ -42,6 +50,11 @@ public class SpringConfig {
         return driverManagerDataSource;
     }
 
+    /**
+     * Конфигурация свойств hibernate
+     *
+     * @return
+     */
     private @NotNull Properties hibernateProperties() {
         Properties properties = new Properties();
 
@@ -51,6 +64,11 @@ public class SpringConfig {
         return properties;
     }
 
+    /**
+     * Создание синглтон-фабрики, которая отвечает за выдачу сессий для связи с БД
+     *
+     * @return
+     */
     @Bean
     public LocalSessionFactoryBean localSessionFactoryBean() {
         LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
@@ -62,6 +80,11 @@ public class SpringConfig {
         return localSessionFactoryBean;
     }
 
+    /**
+     * Менеджер транзакций
+     *
+     * @return
+     */
     @Bean
     public PlatformTransactionManager platformTransactionManager() {
         HibernateTransactionManager hibernateTransactionManager = new HibernateTransactionManager();

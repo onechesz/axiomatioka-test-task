@@ -3,6 +3,9 @@ package com.github.onechesz.axiomatikatesttask.dto;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+/**
+ * Необходим для передачи данных о статусе одобрения заявок менеджеру
+ */
 public class ClientStatusDTO {
     private int id;
     private String lastname;

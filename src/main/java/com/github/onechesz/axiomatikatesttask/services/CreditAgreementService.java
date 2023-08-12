@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+/**
+ * Служит для обработки данных между контроллером и DAO
+ */
 @Service
 public class CreditAgreementService {
     private final CreditAgreementDAO creditAgreementDAO;
@@ -16,6 +19,12 @@ public class CreditAgreementService {
         this.creditAgreementDAO = creditAgreementDAO;
     }
 
+    /**
+     * Задаёт статус "true" для кледитного договора сущности клиента, устанавливает текущие дату и время внутри и
+     * предаёт объект клиента на сохранение в DAO
+     *
+     * @param clientEntity
+     */
     public void save(@NotNull ClientEntity clientEntity) {
         CreditAgreementEntity creditAgreementEntity = clientEntity.getCreditAgreementEntity();
 

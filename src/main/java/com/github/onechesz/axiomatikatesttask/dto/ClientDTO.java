@@ -12,6 +12,9 @@ import org.jetbrains.annotations.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * Необходим при передаче данных от клиента в базу данных, валидации полей
+ */
 public class ClientDTO {
     @Size(min = 1, max = 255, message = "должно быть длиной от 1 до 255 символов.")
     private String firstname;

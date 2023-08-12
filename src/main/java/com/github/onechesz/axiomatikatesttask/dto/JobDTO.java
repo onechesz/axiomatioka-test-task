@@ -7,6 +7,9 @@ import org.jetbrains.annotations.Contract;
 
 import java.time.LocalDate;
 
+/**
+ * Необходим при передаче данных от клиента в базу данных, валидации полей
+ */
 public class JobDTO {
     @Size(min = 1, max = 255, message = "должно быть от 1 до 255 симоволов")
     private String organizationName;

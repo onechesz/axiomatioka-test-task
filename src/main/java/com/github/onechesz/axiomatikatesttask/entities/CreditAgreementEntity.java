@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
+/**
+ * Репрезентует таблицу "credit_agreement" базы данных, представляет из себя сущность кредитного договора
+ */
 @Entity
 @Table(name = "credit_agreement")
 public class CreditAgreementEntity {

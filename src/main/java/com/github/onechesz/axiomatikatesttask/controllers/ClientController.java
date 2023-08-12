@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * Отвечает за взаимодействие с клиентом
+ */
 @Controller
 @RequestMapping(path = "/client")
 public class ClientController {
@@ -26,6 +29,14 @@ public class ClientController {
         this.creditAgreementService = creditAgreementService;
     }
 
+    /**
+     * Отвечает за отображение страницы с заполнением форм заявки на кредит (если пользователь пытается попасть сюда,
+     * уже отправвив заявку, его переадресует на страницу с решением по отправленной заявке
+     *
+     * @param httpServletRequest
+     * @param model
+     * @return
+     */
     @GetMapping(path = "/application")
     public String applicationView(@NotNull HttpServletRequest httpServletRequest, @NotNull Model model) {
         if (httpServletRequest.getSession().getAttribute("client") == null) {
@@ -37,16 +48,32 @@ public class ClientController {
         return "redirect:/client/decision";
     }
 
+    /**
+     * Ловит форму заявки, проверяет поля на наличие синтаксических ошибок и направляет данные на обработку в сервис,
+     * после чего переадресовывает пользователся на страницу с решением по его заявке
+     *
+     * @param httpServletRequest
+     * @param clientDTO
+     * @param bindingResult
+     * @return
+     */
     @PostMapping(path = "/application")
     public String applicationProcess(HttpServletRequest httpServletRequest, @ModelAttribute(name = "client") @Valid ClientDTO clientDTO, @NotNull BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return "client/application";
+        if (bindingResult.hasErrors()) return "client/application";
 
         httpServletRequest.getSession().setAttribute("client", clientService.processApplication(clientDTO));
 
         return "redirect:/client/decision";
     }
 
+    /**
+     * Отображает страницу с решением по пользовательской заявке; если попытаться попасть на такую страницу, не заполнив
+     * заявку, произойдёт переадресация пользователя на страницу заполнения заявки
+     *
+     * @param httpServletRequest
+     * @param model
+     * @return
+     */
     @GetMapping(path = "/decision")
     public String decisionView(@NotNull HttpServletRequest httpServletRequest, @NotNull Model model) {
         ClientEntity clientEntity = (ClientEntity) httpServletRequest.getSession().getAttribute("client");
@@ -60,6 +87,13 @@ public class ClientController {
         return "redirect:/client/application";
     }
 
+    /**
+     * Ловит тех, кому не повезло получить одобрение на кредит, после чего они решили попытать удачу ещё раз, заполнив
+     * новую заявку; очищает сессию от "клиента"
+     *
+     * @param httpServletRequest
+     * @return
+     */
     @PostMapping(path = "/new-client")
     public String newClientProcess(@NotNull HttpServletRequest httpServletRequest) {
         httpServletRequest.getSession().removeAttribute("client");
@@ -67,6 +101,13 @@ public class ClientController {
         return "redirect:/client/application";
     }
 
+    /**
+     * Отображает страницу с возможностю подписания кредитного договора
+     *
+     * @param httpServletRequest
+     * @param model
+     * @return
+     */
     @GetMapping(path = "/agreement")
     public String agreementView(@NotNull HttpServletRequest httpServletRequest, Model model) {
         ClientEntity clientEntity = (ClientEntity) httpServletRequest.getSession().getAttribute("client");
@@ -80,6 +121,12 @@ public class ClientController {
         return "redirect:/client/application";
     }
 
+    /**
+     * Ловит "подпись" кредитного договора, передавая её в сервис
+     *
+     * @param httpServletRequest
+     * @return
+     */
     @PostMapping(path = "/agreement")
     public String agreementProcess(@NotNull HttpServletRequest httpServletRequest) {
         creditAgreementService.save((ClientEntity) httpServletRequest.getSession().getAttribute("client"));

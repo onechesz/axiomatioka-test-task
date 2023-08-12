@@ -10,6 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * Обеспечивает доступ к данным из БД
+ */
 @Component
 @Transactional
 public class ClientDAO {
@@ -19,14 +22,36 @@ public class ClientDAO {
         this.sessionFactory = sessionFactory;
     }
 
+    /**
+     * Сохраняет нового клиента
+     *
+     * @param clientEntity
+     */
     public void save(ClientEntity clientEntity) {
         sessionFactory.getCurrentSession().persist(clientEntity);
     }
 
+    /**
+     * Возвращает все записи из таблицы "client"
+     *
+     * @return
+     */
+    @Transactional(readOnly = true)
     public List<ClientEntity> findAll() {
         return sessionFactory.getCurrentSession().createQuery("FROM ClientEntity", ClientEntity.class).list();
     }
 
+    /**
+     * Обеспечивает поиск по ключевым словам; если одно из них будет null - оно в поиске не учитывается
+     *
+     * @param lastname
+     * @param firstname
+     * @param surname
+     * @param passport
+     * @param phoneNumber
+     * @return
+     */
+    @Transactional(readOnly = true)
     public List<ClientEntity> search(String lastname, String firstname, String surname, String passport, String phoneNumber) {
         String hql = "FROM ClientEntity WHERE 1 = 1";
 
@@ -65,10 +90,22 @@ public class ClientDAO {
         return query.getResultList();
     }
 
+    /**
+     * Возвращает все заявки вместе с минимальной информацией о клиенте, который её создал
+     *
+     * @return
+     */
+    @Transactional(readOnly = true)
     public List<ClientStatusDTO> findAllApplications() {
         return sessionFactory.getCurrentSession().createQuery("SELECT NEW com.github.onechesz.axiomatikatesttask.dto.ClientStatusDTO(c.id, c.lastname, c.firstname, c.surname, c.sum, s.isApproved, s.date, s.daysTerm) FROM ClientEntity c LEFT JOIN c.statusEntity s", ClientStatusDTO.class).getResultList();
     }
 
+    /**
+     * Возвращает все кредитные договоры с минимальной информацией о его владельце
+     *
+     * @return
+     */
+    @Transactional(readOnly = true)
     public List<ClientCreditAgreementDTO> findAllCreditAgreements() {
         return sessionFactory.getCurrentSession().createQuery("SELECT NEW com.github.onechesz.axiomatikatesttask.dto.ClientCreditAgreementDTO(c.id, c.lastname, c.firstname, c.surname, cr.isSigned, cr.signDate) FROM ClientEntity c INNER JOIN c.creditAgreementEntity cr", ClientCreditAgreementDTO.class).getResultList();
     }

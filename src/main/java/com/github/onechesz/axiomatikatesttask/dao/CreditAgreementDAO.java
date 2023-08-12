@@ -5,6 +5,9 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Связывается с БД и получает/отдаёт информацию
+ */
 @Component
 @Transactional
 public class CreditAgreementDAO {
@@ -14,6 +17,11 @@ public class CreditAgreementDAO {
         this.sessionFactory = sessionFactory;
     }
 
+    /**
+     * Необходим для обновления статуса подписания кредитного договора
+     *
+     * @param creditAgreementEntity
+     */
     public void save(CreditAgreementEntity creditAgreementEntity) {
         sessionFactory.getCurrentSession().merge(creditAgreementEntity);
     }

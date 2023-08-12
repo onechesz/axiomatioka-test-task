@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * Репрезентует таблицу "client" базы данных, представляет из себя сущность клиента
+ */
 @Entity
 @Table(name = "client")
 public class ClientEntity {

@@ -2,6 +2,9 @@ package com.github.onechesz.axiomatikatesttask.entities;
 
 import jakarta.persistence.*;
 
+/**
+ * Репрезентует таблицу "user" базы данных, представляет из себя сущность пользователя
+ */
 @Entity
 @Table(name = "\"user\"")
 public class UserEntity {

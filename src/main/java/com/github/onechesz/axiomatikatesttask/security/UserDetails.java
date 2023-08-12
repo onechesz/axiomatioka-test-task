@@ -7,6 +7,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.util.Collection;
 import java.util.Collections;
 
+/**
+ * Реализует интерфейс, гарантируя передачу необходимых данных о полозователе в Security
+ */
 public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
     private final UserEntity userEntity;
 

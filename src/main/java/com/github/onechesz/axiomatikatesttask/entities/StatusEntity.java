@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
+/**
+ * Репрезентует таблицу "status" базы данных, представляет из себя сущность статуса одобрения завяки на кредит
+ */
 @Entity
 @Table(name = "status")
 public class StatusEntity {
