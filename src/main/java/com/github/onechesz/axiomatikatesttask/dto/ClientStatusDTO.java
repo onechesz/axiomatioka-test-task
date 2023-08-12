@@ -12,6 +12,7 @@ public class ClientStatusDTO {
     private boolean isApproved;
     private LocalDate date;
     private int daysTerm;
+    private String isApprovedRu;
 
     public ClientStatusDTO() {
 
@@ -90,5 +91,13 @@ public class ClientStatusDTO {
 
     public void setDaysTerm(int daysTerm) {
         this.daysTerm = daysTerm;
+    }
+
+    public String getIsApprovedRu() {
+        return isApprovedRu;
+    }
+
+    public void setIsApprovedRu(String isApprovedRu) {
+        this.isApprovedRu = isApprovedRu;
     }
 }

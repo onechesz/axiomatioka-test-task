@@ -1,6 +1,7 @@
 package com.github.onechesz.axiomatikatesttask.services;
 
 import com.github.onechesz.axiomatikatesttask.dao.ClientDAO;
+import com.github.onechesz.axiomatikatesttask.dto.ClientCreditAgreementDTO;
 import com.github.onechesz.axiomatikatesttask.dto.ClientDTO;
 import com.github.onechesz.axiomatikatesttask.dto.ClientStatusDTO;
 import com.github.onechesz.axiomatikatesttask.entities.ClientEntity;
@@ -58,7 +59,21 @@ public class ClientService {
         }).toList();
     }
 
-    public List<ClientStatusDTO> findAllWithStatus() {
-        return clientDAO.findAllWithStatus();
+    public List<ClientStatusDTO> findAllApplications() {
+        return clientDAO.findAllApplications().stream().peek(clientStatusDTO -> {
+            if (clientStatusDTO.isApproved())
+                clientStatusDTO.setIsApprovedRu("одобрен");
+            else
+                clientStatusDTO.setIsApprovedRu("не одобрен");
+        }).toList();
+    }
+
+    public List<ClientCreditAgreementDTO> findAllCreditAgreements() {
+        return clientDAO.findAllCreditAgreements().stream().peek(clientCreditAgreementDTO -> {
+            if (clientCreditAgreementDTO.isSigned())
+                clientCreditAgreementDTO.setIsSignedRu("да");
+            else
+                clientCreditAgreementDTO.setIsSignedRu("нет");
+        }).toList();
     }
 }

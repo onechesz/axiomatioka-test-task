@@ -39,8 +39,15 @@ public class UserController {
 
     @GetMapping(path = "/applications")
     public String applicationsView(@NotNull Model model) {
-        model.addAttribute("applications", clientService.findAllWithStatus());
+        model.addAttribute("applications", clientService.findAllApplications());
 
         return "user/applications";
+    }
+
+    @GetMapping(path = "/credit-agreements")
+    public String creditAgreementsView(@NotNull Model model) {
+        model.addAttribute("creditAgreements", clientService.findAllCreditAgreements());
+
+        return "user/credit-agreements";
     }
 }

@@ -1,5 +1,6 @@
 package com.github.onechesz.axiomatikatesttask.dao;
 
+import com.github.onechesz.axiomatikatesttask.dto.ClientCreditAgreementDTO;
 import com.github.onechesz.axiomatikatesttask.dto.ClientStatusDTO;
 import com.github.onechesz.axiomatikatesttask.entities.ClientEntity;
 import org.hibernate.SessionFactory;
@@ -64,7 +65,11 @@ public class ClientDAO {
         return query.getResultList();
     }
 
-    public List<ClientStatusDTO> findAllWithStatus() {
-        return sessionFactory.getCurrentSession().createQuery("SELECT NEW com.github.onechesz.axiomatikatesttask.dto.ClientStatusDTO (c.id, c.lastname, c.firstname, c.surname, c.sum, s.isApproved, s.date, s.daysTerm) FROM ClientEntity c LEFT JOIN c.statusEntity s", ClientStatusDTO.class).getResultList();
+    public List<ClientStatusDTO> findAllApplications() {
+        return sessionFactory.getCurrentSession().createQuery("SELECT NEW com.github.onechesz.axiomatikatesttask.dto.ClientStatusDTO(c.id, c.lastname, c.firstname, c.surname, c.sum, s.isApproved, s.date, s.daysTerm) FROM ClientEntity c LEFT JOIN c.statusEntity s", ClientStatusDTO.class).getResultList();
+    }
+
+    public List<ClientCreditAgreementDTO> findAllCreditAgreements() {
+        return sessionFactory.getCurrentSession().createQuery("SELECT NEW com.github.onechesz.axiomatikatesttask.dto.ClientCreditAgreementDTO(c.id, c.lastname, c.firstname, c.surname, cr.isSigned, cr.signDate) FROM ClientEntity c INNER JOIN c.creditAgreementEntity cr", ClientCreditAgreementDTO.class).getResultList();
     }
 }

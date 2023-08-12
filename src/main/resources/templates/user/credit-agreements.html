@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Кредитные договоры</title>
+    </head>
+
+    <body>
+        <h1>Кредитные договоры</h1>
+
+        <table>
+            <tr>
+                <th>Идентификатор</th>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Подписан?</th>
+                <th>Дата подписания</th>
+            </tr>
+            <tr th:each="creditAgreement : ${creditAgreements}">
+                <td th:text="${creditAgreement.id}"></td>
+                <td th:text="${creditAgreement.lastname}"></td>
+                <td th:text="${creditAgreement.firstname}"></td>
+                <td th:text="${creditAgreement.surname}"></td>
+                <td th:text="${creditAgreement.isSignedRu}"></td>
+                <td th:text="${#temporals.format(creditAgreement.signDate, 'dd-MM-yyyy HH:mm')}"></td>
+            </tr>
+        </table>
+    </body>
+</html>
