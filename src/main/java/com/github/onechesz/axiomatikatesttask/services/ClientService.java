@@ -2,6 +2,7 @@ package com.github.onechesz.axiomatikatesttask.services;
 
 import com.github.onechesz.axiomatikatesttask.dao.ClientDAO;
 import com.github.onechesz.axiomatikatesttask.dto.ClientDTO;
+import com.github.onechesz.axiomatikatesttask.dto.ClientStatusDTO;
 import com.github.onechesz.axiomatikatesttask.entities.ClientEntity;
 import com.github.onechesz.axiomatikatesttask.entities.CreditAgreementEntity;
 import com.github.onechesz.axiomatikatesttask.entities.StatusEntity;
@@ -55,5 +56,9 @@ public class ClientService {
             }
 
         }).toList();
+    }
+
+    public List<ClientStatusDTO> findAllWithStatus() {
+        return clientDAO.findAllWithStatus();
     }
 }

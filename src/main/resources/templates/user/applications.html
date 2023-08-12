@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Заявки</title>
+    </head>
+
+    <body>
+        <h1>Заявки</h1>
+
+        <table>
+            <tr>
+                <th>Идентификатор</th>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Сумма (в рублях)</th>
+                <th>Статус</th>
+                <th>Дата</th>
+                <th>Срок (в днях)</th>
+            </tr>
+            <tr th:each="appl : ${applications}">
+                <td th:text="${appl.id}"></td>
+                <td th:text="${appl.lastname}"></td>
+                <td th:text="${appl.firstname}"></td>
+                <td th:text="${appl.surname}"></td>
+                <td th:text="${appl.sum}"></td>
+                <td th:text="${appl.approved}"></td>
+                <td th:text="${appl.date}"></td>
+                <td th:text="${appl.daysTerm}"></td>
+            </tr>
+        </table>
+    </body>
+</html>

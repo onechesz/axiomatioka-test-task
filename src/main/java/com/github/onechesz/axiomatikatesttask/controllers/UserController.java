@@ -36,4 +36,11 @@ public class UserController {
 
         return "user/clients";
     }
+
+    @GetMapping(path = "/applications")
+    public String applicationsView(@NotNull Model model) {
+        model.addAttribute("applications", clientService.findAllWithStatus());
+
+        return "user/applications";
+    }
 }

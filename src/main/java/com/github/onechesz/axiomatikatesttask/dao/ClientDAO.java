@@ -1,5 +1,6 @@
 package com.github.onechesz.axiomatikatesttask.dao;
 
+import com.github.onechesz.axiomatikatesttask.dto.ClientStatusDTO;
 import com.github.onechesz.axiomatikatesttask.entities.ClientEntity;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -61,5 +62,9 @@ public class ClientDAO {
             query.setParameter("phoneNumber", phoneNumber);
 
         return query.getResultList();
+    }
+
+    public List<ClientStatusDTO> findAllWithStatus() {
+        return sessionFactory.getCurrentSession().createQuery("SELECT NEW com.github.onechesz.axiomatikatesttask.dto.ClientStatusDTO (c.id, c.lastname, c.firstname, c.surname, c.sum, s.isApproved, s.date, s.daysTerm) FROM ClientEntity c LEFT JOIN c.statusEntity s", ClientStatusDTO.class).getResultList();
     }
 }
