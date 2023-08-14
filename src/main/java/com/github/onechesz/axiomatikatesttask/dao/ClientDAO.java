@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Обеспечивает доступ к данным из БД
@@ -108,5 +109,16 @@ public class ClientDAO {
     @Transactional(readOnly = true)
     public List<ClientCreditAgreementDTO> findAllCreditAgreements() {
         return sessionFactory.getCurrentSession().createQuery("SELECT NEW com.github.onechesz.axiomatikatesttask.dto.ClientCreditAgreementDTO(c.id, c.lastname, c.firstname, c.surname, cr.isSigned, cr.signDate) FROM ClientEntity c INNER JOIN c.creditAgreementEntity cr", ClientCreditAgreementDTO.class).getResultList();
+    }
+
+    /**
+     * Возвращает клиента, найденного по паспорту или ничего
+     *
+     * @param passport
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public Optional<ClientEntity> findByPassport(String passport) {
+        return Optional.of(sessionFactory.getCurrentSession().createQuery("FROM ClientEntity c WHERE c.passport = :passport", ClientEntity.class).setParameter("passport", passport).getSingleResult());
     }
 }

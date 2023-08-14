@@ -4,6 +4,7 @@ import com.github.onechesz.axiomatikatesttask.dto.ClientDTO;
 import com.github.onechesz.axiomatikatesttask.entities.ClientEntity;
 import com.github.onechesz.axiomatikatesttask.services.ClientService;
 import com.github.onechesz.axiomatikatesttask.services.CreditAgreementService;
+import com.github.onechesz.axiomatikatesttask.validators.ClientValidator;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.jetbrains.annotations.NotNull;
@@ -23,10 +24,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ClientController {
     private final ClientService clientService;
     private final CreditAgreementService creditAgreementService;
+    private final ClientValidator clientValidator;
 
-    public ClientController(ClientService clientService, CreditAgreementService creditAgreementService) {
+    public ClientController(ClientService clientService, CreditAgreementService creditAgreementService, ClientValidator clientValidator) {
         this.clientService = clientService;
         this.creditAgreementService = creditAgreementService;
+        this.clientValidator = clientValidator;
     }
 
     /**
@@ -59,6 +62,10 @@ public class ClientController {
      */
     @PostMapping(path = "/application")
     public String applicationProcess(HttpServletRequest httpServletRequest, @ModelAttribute(name = "client") @Valid ClientDTO clientDTO, @NotNull BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) return "client/application";
+
+        clientValidator.validate(clientDTO, bindingResult);
+
         if (bindingResult.hasErrors()) return "client/application";
 
         httpServletRequest.getSession().setAttribute("client", clientService.processApplication(clientDTO));

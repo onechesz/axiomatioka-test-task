@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -104,5 +105,15 @@ public class ClientService {
             if (clientCreditAgreementDTO.isSigned()) clientCreditAgreementDTO.setIsSignedRu("да");
             else clientCreditAgreementDTO.setIsSignedRu("нет");
         }).toList();
+    }
+
+    /**
+     * Передаёт информацию о клиенте из DAO
+     *
+     * @param passport
+     * @return
+     */
+    public Optional<ClientEntity> findByPassport(String passport) {
+        return clientDAO.findByPassport(passport);
     }
 }
