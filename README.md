@@ -1,6 +1,6 @@
 <h1>Веб-приложение, реализованное в процессе выполнение тестового задания на позицию Junior Java-разработчика в компанию https://axiomatika.ru/.</h1>
 
-<h4>Технологии, использованные при разработке:<h4>
+<h4>Технологии, использованные при разработке:</h4>
 <ul>
     <li>Java</li>
     <li>Spring (Security, Thymeleaf, Validation, Web, Postgresql, Hibernate, ORM)</li>
